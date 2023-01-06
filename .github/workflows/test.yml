@@ -7,14 +7,9 @@ on:
 jobs:
   Build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Deploy QA
-        uses: ./.github/workflows/deploy-qa.yml
-        with:
-          project: scoap3
-          application: scoap3-workflows
-          namespace: scoap3-qa
-          image: reg.cern.ch/cern/workflow
+    uses: ./.github/workflows/deploy-qa.yml
+    with:
+      project: scoap3
+      application: scoap3-workflows
+      namespace: scoap3-qa
+      image: reg.cern.ch/cern/workflow      
