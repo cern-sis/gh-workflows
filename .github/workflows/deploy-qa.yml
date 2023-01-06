@@ -1,0 +1,28 @@
+name: Deploy QA
+
+on:
+  workflow_call:
+    inputs:
+      project:
+        required: true
+        type: string
+      application:
+        required: true
+        type: string
+      namespace:
+        required: true
+        type: string
+      image:
+        required: true
+        type: string
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: peter-evans/repository-dispatch@v1
+      if: ${{ github.event_name == 'push'}}
+      with:
+        token: ${{ secrets.CERN_SIS_BOT_PAT }}
+        repository: cern-sis/kubernetes
+        event-type: deploy
+        client-payload: '{"project":"${{ inputs.project }}", "application":"${{ inputs.application }}", "namespace":"${{ inputs.namespace }}", "image":"${{ inputs.image }}","new_tag":"${{ github.sha }}"}'
