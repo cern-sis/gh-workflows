@@ -26,7 +26,6 @@ jobs:
     - uses: peter-evans/repository-dispatch@v1
       if: ${{ github.event_name == 'push'}}
       with:
-        token: ${{ secrets.CERN_SIS_BOT_PAT }}
         repository: ${{ inputs.repository }}
         event-type: deploy
         client-payload: '{"project":"${{ inputs.project }}", "application":"${{ inputs.application }}", "namespace":"${{ inputs.namespace }}", "image":"${{ inputs.image }}","new_tag":"${{ github.sha }}"}'
