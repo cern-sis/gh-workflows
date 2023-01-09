@@ -31,5 +31,5 @@ jobs:
       with:
         repository: ${{ inputs.repository }}
         event-type: deploy
-        token: ${{ inputs.PAT }}
+        token: ${{ secrets.PAT }}
         client-payload: '{"project":"${{ inputs.project }}", "application":"${{ inputs.application }}", "namespace":"${{ inputs.namespace }}", "image":"${{ inputs.image }}","new_tag":"${{ github.sha }}"}'
