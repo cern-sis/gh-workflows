@@ -19,6 +19,9 @@ on:
         required: false
         type: string
         default: cern-sis/kubernetes
+    secrets:
+      PAT:
+        required: true
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -28,4 +31,5 @@ jobs:
       with:
         repository: ${{ inputs.repository }}
         event-type: deploy
+        token: ${{ inputs.PAT }}
         client-payload: '{"project":"${{ inputs.project }}", "application":"${{ inputs.application }}", "namespace":"${{ inputs.namespace }}", "image":"${{ inputs.image }}","new_tag":"${{ github.sha }}"}'
