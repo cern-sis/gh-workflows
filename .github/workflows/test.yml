@@ -8,6 +8,7 @@ jobs:
   Build:
     uses: ./.github/workflows/deploy-qa.yml
     with:
+      repository: cern-sis/gh-workflows
       project: scoap3
       application: scoap3-workflows
       namespace: scoap3-qa
