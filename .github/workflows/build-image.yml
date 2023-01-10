@@ -13,9 +13,9 @@ on:
         required: true
         type: boolean
     secrets:
-      harborUsername:
+      registry_username:
         required: true
-      harborPassword:
+      registry_password:
         required: true
 jobs:
   Build:
@@ -35,8 +35,8 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ${{ inputs.registry }}
-          username: ${{ secrets.harborUsername }}
-          password: ${{ secrets.harborPassword }}
+          username: ${{ secrets.registry_username }}
+          password: ${{ secrets.registry_password }}
 
       - name: Build docker image
         uses: docker/build-push-action@v2
