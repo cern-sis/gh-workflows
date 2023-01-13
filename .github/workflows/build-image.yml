@@ -3,6 +3,8 @@ name: Build Image
 on:
   workflow_call:
     inputs:
+      context:
+        type: string
       registry:
         required: true
         type: string
@@ -41,6 +43,7 @@ jobs:
       - name: Build docker image
         uses: docker/build-push-action@v2
         with:
+          context: ${{ inputs.context }}
           registry: ${{ inputs.registry }}
           push: ${{ inputs.push }}
           tags: ${{ inputs.tags }}
