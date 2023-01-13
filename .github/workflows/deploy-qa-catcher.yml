@@ -1,0 +1,32 @@
+name: Update image
+
+on:
+  repository_dispatch:
+    types: [deploy]
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'Project'
+        required: true
+      application:
+        description: 'Application name'
+        required: true
+      namespace:
+        description: 'Namespace'
+        required: true
+      image:
+        description: 'Docker image'
+        required: true
+      new_tag:
+        description: 'The new tag to deploy'
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+
