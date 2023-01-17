@@ -19,4 +19,4 @@ runs:
         TAG: ${{ inputs.tags }}
         CONTEXT: ${{ inputs.context }}
       run: |
-        docker build -t $TAG -f $CONTEXT/Dockerfile $CONTEXT
+        docker build -t $TAG $CONTEXT
