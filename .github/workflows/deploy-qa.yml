@@ -19,6 +19,10 @@ on:
         required: false
         type: string
         default: cern-sis/kubernetes
+      new_tag:
+        required: false
+        type: string
+        default: ${{ github.sha }}
     secrets:
       PAT:
         required: true
@@ -32,4 +36,4 @@ jobs:
         repository: ${{ inputs.repository }}
         event-type: deploy
         token: ${{ secrets.PAT }}
-        client-payload: '{"project":"${{ inputs.project }}", "application":"${{ inputs.application }}", "namespace":"${{ inputs.namespace }}", "image":"${{ inputs.image }}","new_tag":"${{ github.sha }}"}'
+        client-payload: '{"project":"${{ inputs.project }}", "application":"${{ inputs.application }}", "namespace":"${{ inputs.namespace }}", "image":"${{ inputs.image }}","new_tag":"${{ inputs.new_tag }}"}'
