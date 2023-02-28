@@ -1,10 +1,17 @@
 name: "Build Docker Image"
 inputs:
-  context:
-    type: string
-  tags:
+  image:
     required: true
-    type: string
+    description: The image name
+  context:
+    required: false
+    default: "."
+  tags:
+    default: ""
+    required: false
+  push:
+    required: false
+    default: false
 runs:
   using: "composite"
   steps:
@@ -14,9 +21,27 @@ runs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
-    - name: Build Docker
-      shell: bash
-      env:
-        TAG: ${{ inputs.tags }}
-        CONTEXT: ${{ inputs.context }}
-      run: docker build -t $TAG $CONTEXT
+    - name: Generate metadata
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: name/app
+        tags: ${{ inputs.tags }}
+
+    - name: Build and export
+      uses: docker/build-push-action@v4
+      with:
+        context: ${{ inputs.context }}
+        tags: "type=sha,${{ steps.meta.outputs.tags }}"
+        labels: ${{ steps.meta.outputs.labels }}
+        push: ${{ inputs.push }}
+        load: true
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        outputs: type=docker,dest=/tmp/${{ github.ref }}.tar
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ github.ref }}
+        path: /tmp/${{ github.ref }}.tar
