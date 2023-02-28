@@ -26,22 +26,22 @@ runs:
       uses: docker/metadata-action@v4
       with:
         images: name/app
-        tags: ${{ inputs.tags }}
+        tags: "type=sha,${{ inputs.tags }}"
 
     - name: Build and export
       uses: docker/build-push-action@v4
       with:
         context: ${{ inputs.context }}
-        tags: "type=sha,${{ steps.meta.outputs.tags }}"
+        tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: ${{ inputs.push }}
         load: true
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        outputs: type=docker,dest=/tmp/${{ github.ref }}.tar
+        outputs: type=docker,dest=/tmp/image.tar
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ github.ref }}
-        path: /tmp/${{ github.ref }}.tar
+        name: ${{ github.sha }}
+        path: /tmp/image.tar
