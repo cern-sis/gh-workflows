@@ -41,6 +41,7 @@ runs:
         outputs: type=docker,dest=/tmp/image.tar
 
     - name: Generate artifact name
+      shell: bash
       run: >
         echo 'ARTIFACT_NAME=${{ inputs. image }}'
         | sed 's%/%-%g'
