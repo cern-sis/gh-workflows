@@ -2,7 +2,6 @@ name: "Build Docker Image"
 inputs:
   image:
     required: true
-    description: The image name
   context:
     required: false
     default: "."
@@ -12,6 +11,13 @@ inputs:
   push:
     required: false
     default: false
+  registry:
+    required: false
+    default: docker.io
+  username:
+    required: false
+  password:
+    required: false
 runs:
   using: "composite"
   steps:
@@ -28,6 +34,14 @@ runs:
         images: ${{ inputs.image }}
         tags: "type=sha,${{ inputs.tags }}"
 
+    - name: Login
+      if: ${{ inputs.push }}
+      uses: docker/login-action@v2
+      with:
+        registry: ${{ inputs.registry }}
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
+
     - name: Build and export
       uses: docker/build-push-action@v4
       with:
@@ -36,20 +50,5 @@ runs:
         labels: ${{ steps.meta.outputs.labels }}
         push: ${{ inputs.push }}
         load: true
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-        outputs: type=docker,dest=/tmp/image.tar
-
-    - name: Generate artifact name
-      shell: bash
-      run: >
-        echo 'ARTIFACT_NAME=${{ inputs. image }}'
-        | sed 's%/%-%g'
-        >>$GITHUB_ENV
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{ env.ARTIFACT_NAME }}
-        path: /tmp/image.tar
-        if-no-files-found: error
+        cache-from: type=registry,ref=${{ inputs.image }}:buildcache
+        cache-to: type=registry,ref=${{ inputs.image }}:buildcache,mode=max
