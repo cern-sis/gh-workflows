@@ -8,9 +8,6 @@ inputs:
   tags:
     default: ""
     required: false
-  push:
-    required: false
-    default: false
   registry:
     required: false
     default: docker.io
@@ -48,7 +45,7 @@ runs:
         context: ${{ inputs.context }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        push: ${{ inputs.push }}
+        push: true
         load: true
         cache-from: type=registry,ref=${{ inputs.image }}:buildcache
         cache-to: type=registry,ref=${{ inputs.image }}:buildcache,mode=max
