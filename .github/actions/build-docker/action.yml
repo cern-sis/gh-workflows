@@ -25,7 +25,7 @@ runs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-        images: name/app
+        images: ${{ inputs.image }}
         tags: "type=sha,${{ inputs.tags }}"
 
     - name: Build and export
@@ -40,8 +40,15 @@ runs:
         cache-to: type=gha,mode=max
         outputs: type=docker,dest=/tmp/image.tar
 
+    - name: Generate artifact name
+      run: >
+        echo 'ARTIFACT_NAME=${{ inputs. image }}'
+        | sed 's%/%-%g'
+        >>$GITHUB_ENV
+
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ inputs.image }}
+        name: ${{ env.ARTIFACT_NAME }}
         path: /tmp/image.tar
+        if-no-files-found: error
