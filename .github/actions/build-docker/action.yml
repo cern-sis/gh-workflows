@@ -13,9 +13,9 @@ inputs:
     required: false
     default: docker.io
   username:
-    required: false
+    required: true
   password:
-    required: false
+    required: true
 
 outputs:
   image:
@@ -39,7 +39,6 @@ runs:
         tags: "type=sha,${{ inputs.tags }}"
 
     - name: Login
-      if: ${{ inputs.push }}
       uses: docker/login-action@v2
       with:
         registry: ${{ inputs.registry }}
