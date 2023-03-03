@@ -5,13 +5,10 @@ inputs:
     required: true
   context:
     required: false
-    default: "."
   tags:
-    default: ""
     required: false
   registry:
     required: false
-    default: docker.io
   username:
     required: true
   password:
