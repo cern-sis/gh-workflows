@@ -16,6 +16,8 @@ inputs:
     required: true
   password:
     required: true
+  stage:
+    required: false
 
 outputs:
   image-id:
@@ -50,6 +52,7 @@ runs:
       uses: docker/build-push-action@v4
       with:
         context: ${{ inputs.context }}
+        target: ${{ inputs.stage }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
