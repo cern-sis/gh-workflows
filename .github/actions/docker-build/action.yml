@@ -24,8 +24,6 @@ outputs:
 
 runs:
   using: "composite"
-  env:
-    IMAGE: ${{ inputs.registry }}/${{ inputs.image }}
   steps:
     - name: Set up Docker
       uses: cern-sis/gh-workflows/.github/actions/docker-setup@update-build-action
@@ -34,7 +32,7 @@ runs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-        images: ${{ env.IMAGE }}
+        images: ${{ inputs.registry }}/${{ inputs.image }}
         tags: "type=sha,${{ inputs.tags }}"
 
     - name: Login
@@ -53,5 +51,5 @@ runs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
-        cache-from: type=registry,ref=${{ env.IMAGE }}:buildcache
-        cache-to: type=registry,ref=${{ env.IMAGE }}:buildcache,mode=max
+        cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache
+        cache-to: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache,mode=max
