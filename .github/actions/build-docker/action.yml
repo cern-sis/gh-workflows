@@ -28,6 +28,7 @@ runs:
       uses: docker/setup-qemu-action@v2
 
     - name: Set up Docker Context for Buildx
+      shell: bash
       run: docker context create builder
 
     # https://github.com/docker/setup-buildx-action/issues/105
