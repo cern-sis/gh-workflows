@@ -24,18 +24,8 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
-
-    - name: Set up Docker Context for Buildx
-      shell: bash
-      run: docker context create builder
-
-    # https://github.com/docker/setup-buildx-action/issues/105
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-      with:
-        endpoint: builder
+    - name: Set up Docker
+      uses: cern-sis/gh-workflows/.github/actions/docker-setup@update-build-action
 
     - name: Generate metadata
       id: meta
