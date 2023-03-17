@@ -48,7 +48,6 @@ runs:
       with:
         context: ${{ inputs.context }}
         target: ${{ inputs.stage }}
-        network: host
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
