@@ -1,0 +1,55 @@
+name: "Build Docker Image"
+
+inputs:
+  image:
+    required: true
+  context:
+    required: false
+  tags:
+    required: false
+  registry:
+    required: false
+    default: "docker.io"
+  username:
+    required: true
+  password:
+    required: true
+  stage:
+    required: false
+
+outputs:
+  image-id:
+    description: The ID of the image that was built
+    value: ${{ steps.build.outputs.imageid }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Docker
+      uses: cern-sis/gh-workflows/.github/actions/docker-setup@update-build-action
+
+    - name: Generate metadata
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: ${{ inputs.registry }}/${{ inputs.image }}
+        tags: "type=sha,${{ inputs.tags }}"
+
+    - name: Login
+      uses: docker/login-action@v2
+      with:
+        registry: ${{ inputs.registry }}
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
+
+    - id: build
+      name: Build and export
+      uses: docker/build-push-action@v4
+      with:
+        context: ${{ inputs.context }}
+        target: ${{ inputs.stage }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        push: true
+        cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache
+        cache-to: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache,mode=max
