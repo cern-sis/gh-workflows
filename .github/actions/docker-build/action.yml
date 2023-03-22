@@ -26,7 +26,7 @@ runs:
   using: "composite"
   steps:
     - name: Set up Docker
-      uses: cern-sis/gh-workflows/.github/actions/docker-setup@update-build-action
+      uses: cern-sis/gh-workflows/.github/actions/docker-setup@v2.0.0
 
     - name: Generate metadata
       id: meta
