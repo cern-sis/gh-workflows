@@ -1,0 +1,27 @@
+name: Kubernetes project update
+
+inputs:
+  inputs:
+    application:
+      required: true
+      type: string
+    image:
+      required: true
+      type: string
+  secrets:
+    PAT:
+      required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: peter-evans/repository-dispatch@v1
+      with:
+        repository: cern-sis/kubernetes
+        event-type: project-release
+        token: ${{ secrets.PAT }}
+        client-payload: >
+          {
+            "application": "${{ inputs.application }}",
+            "image": "${{ inputs.image }}",
+          }
