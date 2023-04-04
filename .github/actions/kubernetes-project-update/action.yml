@@ -2,10 +2,7 @@ name: Kubernetes project update
 
 inputs:
   inputs:
-    application:
-      required: true
-      type: string
-    image:
+    images:
       required: true
       type: string
   secrets:
@@ -20,8 +17,4 @@ runs:
         repository: cern-sis/kubernetes
         event-type: project-update
         token: ${{ secrets.PAT }}
-        client-payload: >
-          {
-            "application": "${{ inputs.application }}",
-            "image": "${{ inputs.image }}",
-          }
+        client-payload: '{"images":"${{ inputs.images }}"}'
