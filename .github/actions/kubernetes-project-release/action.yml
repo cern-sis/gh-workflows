@@ -5,9 +5,9 @@ inputs:
     images:
       required: true
       type: string
-  secrets:
-    PAT:
+    token:
       required: true
+      type: string
 
 runs:
   using: "composite"
@@ -16,5 +16,5 @@ runs:
       with:
         repository: cern-sis/kubernetes
         event-type: project-release
-        token: ${{ secrets.PAT }}
+        token: ${{ inputs.token }}
         client-payload: '{"images":"${{ inputs.images }}"}'
