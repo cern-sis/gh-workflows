@@ -1,20 +1,26 @@
 name: Kubernetes project release
 
 inputs:
-  inputs:
-    images:
-      required: true
-      type: string
-    token:
-      required: true
-      type: string
+  images:
+    required: true
+    type: string
+  token:
+    required: true
+    type: string
 
 runs:
   using: "composite"
   steps:
+    - shell: bash
+      run: |
+        printf \
+        'PAYLOAD={"images":%s}' \
+        $(jq -nc '$ARGS.positional' --args ${{ inputs.images }}) \
+        >>$GITHUB_ENV
+
     - uses: peter-evans/repository-dispatch@v1
       with:
         repository: cern-sis/kubernetes
         event-type: project-release
         token: ${{ inputs.token }}
-        client-payload: '{"images":${{ inputs.images }}}'
+        client-payload: ${{ env.PAYLOAD }}
