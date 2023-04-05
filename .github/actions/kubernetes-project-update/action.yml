@@ -12,9 +12,16 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - shell: bash
+      run: |
+        printf \
+        'PAYLOAD={"images":%s}' \
+        $(echo -e ${{ inputs.images }} | jq --slurp --raw-input 'split("\n") | map(select(length > 0))') \
+        >>$GITHUB_ENV
+
     - uses: peter-evans/repository-dispatch@v1
       with:
         repository: cern-sis/kubernetes
         event-type: project-update
         token: ${{ inputs.token }}
-        client-payload: '{"images":${{ inputs.images }}}'
+        client-payload: ${{ env.PAYLOAD }}
