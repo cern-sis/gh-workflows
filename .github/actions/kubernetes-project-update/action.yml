@@ -1,13 +1,12 @@
 name: Kubernetes project update
 
 inputs:
-  inputs:
-    images:
-      required: true
-      type: string
-    token:
-      required: true
-      type: string
+  images:
+    required: true
+    type: string
+  token:
+    required: true
+    type: string
 
 runs:
   using: "composite"
