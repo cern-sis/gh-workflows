@@ -17,4 +17,4 @@ runs:
         repository: cern-sis/kubernetes
         event-type: project-update
         token: ${{ inputs.token }}
-        client-payload: '{"images":"${{ inputs.images }}"}'
+        client-payload: '{"images":${{ inputs.images }}}'
