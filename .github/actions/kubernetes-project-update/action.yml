@@ -15,7 +15,7 @@ runs:
       run: |
         printf \
         'PAYLOAD={"images":%s}' \
-        $(echo -e ${{ inputs.images }} | jq --slurp --raw-input 'split("\n") | map(select(length > 0))') \
+        $(jq -nc '$ARGS.positional' --args ${{ inputs.images }}) \
         >>$GITHUB_ENV
 
     - uses: peter-evans/repository-dispatch@v1
