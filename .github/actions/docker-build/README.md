@@ -51,7 +51,7 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Build and push
-        uses: cern-sis/gh-workflows/.github/actions/docker-build@v2.0.0
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v4.0.0
         with:
           image: cern-sis/mycoolproject/test
           tags: |
@@ -75,7 +75,7 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Build and push
-        uses: cern-sis/gh-workflows/.github/actions/docker-build@v2.0.0
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v4.0.0
         with:
           image: myorg/mycoolimage
           contest: ./docker/source
