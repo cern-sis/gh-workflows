@@ -2,7 +2,7 @@
 
 ## Description
 
-This action bundle all the steps needed to build a docker image in your workflow without any previous setup. This action always push the resulting image, tags and cache to the remote registry so credentials are mandatory.
+This action bundle all the steps needed to build a docker image in your workflow without any previous setup. This action always push the resulting image, tags and cache to the remote registry so credentials are mandatory. This action already installs docker there is no need to use [docker setup](../docker-setup) in the same workflow.
 
 
 ## Inputs
