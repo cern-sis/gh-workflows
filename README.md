@@ -12,3 +12,7 @@ This repository contains workflows and actions that you can use directly in your
 - [Deploy new releases](./.github/actions/kubernetes-project-release)
 
 ## Workflows
+
+## Notes
+
+Please always use the [latest release](https://github.com/cern-sis/gh-workflows/releases/latest) tag when writing new workflows and try to upgrade existing ones.
