@@ -15,4 +15,4 @@ This repository contains workflows and actions that you can use directly in your
 
 ## Notes
 
-Please always use the [latest release](https://github.com/cern-sis/gh-workflows/releases/latest) tag when writing new workflows and try to upgrade existing ones.
+Please always use the [latest release](https://github.com/cern-sis/gh-workflows/releases/latest) tag when adding actions and workflows to your CI. Don't forget to upgrade your existing workflows to the latest release.
