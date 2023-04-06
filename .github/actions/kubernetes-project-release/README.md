@@ -1,8 +1,8 @@
-# Kubernetes project update
+# Kubernetes project release
 
 ## Description
 
-This action can be used to notify the `cern-sis/kubernetes` repository that your project has been updated and new docker images are available. This will trigger updates and deployments depending on the environments impacted. If your new images are intended for production, use the [Kubernetes project release action](../kubernetes-project-release) instead.
+This action can be used to notify the `cern-sis/kubernetes` repository that a new release is available on your project. Contrary to [Kubernetes project update](../kubernetes-project-update), releases are versions intended for production.
 
 
 ## Inputs

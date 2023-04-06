@@ -16,7 +16,7 @@ inputs:
     required: true
   stage:
     required: false
-  file:
+  dockerfile:
     required: false
 
 outputs:
@@ -55,4 +55,4 @@ runs:
         push: true
         cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache
         cache-to: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache,mode=max
-        file: ${{ inputs.file }}
+        file: ${{ inputs.dockerfile }}
