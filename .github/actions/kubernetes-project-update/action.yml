@@ -13,9 +13,14 @@ runs:
   steps:
     - shell: bash
       run: |
+        IMAGES=$(cat <<EOF
+        ${{ inputs.images }}
+        EOF
+        )
+
         printf \
         'PAYLOAD={"images":%s}' \
-        $(jq -nc '$ARGS.positional' --args ${{ join(inputs.images, ' ') }}) \
+        $(jq -nc '$ARGS.positional' --args $IMAGES) \
         >>$GITHUB_ENV
 
     - uses: peter-evans/repository-dispatch@v1
