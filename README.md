@@ -8,8 +8,7 @@ This repository contains workflows and actions that you can use directly in your
 
 - [Setup docker](./.github/actions/docker-setup)
 - [Build docker images](./.github/actions/docker-build)
-- [Deploy new images](./.github/actions/kubernetes-project-update)
-- [Deploy new releases](./.github/actions/kubernetes-project-release)
+- [Deploy new images](./.github/actions/kubernetes-project-new-images)
 
 ## Workflows
 

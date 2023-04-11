@@ -1,6 +1,9 @@
-name: Kubernetes project release
+name: Kubernetes project new images
 
 inputs:
+  event-type:
+    required: true
+    type: string
   images:
     required: true
     type: string
@@ -13,14 +16,19 @@ runs:
   steps:
     - shell: bash
       run: |
+        IMAGES=$(cat <<EOF
+        ${{ inputs.images }}
+        EOF
+        )
+
         printf \
         'PAYLOAD={"images":%s}' \
-        $(jq -nc '$ARGS.positional' --args ${{ inputs.images }}) \
+        $(jq -nc '$ARGS.positional' --args $IMAGES) \
         >>$GITHUB_ENV
 
     - uses: peter-evans/repository-dispatch@v1
       with:
         repository: cern-sis/kubernetes
-        event-type: project-release
+        event-type: project-${{ inputs.event-type }}
         token: ${{ inputs.token }}
         client-payload: ${{ env.PAYLOAD }}

@@ -1,14 +1,14 @@
-# Kubernetes project update
+# Kubernetes project new images
 
 ## Description
 
-This action can be used to notify the `cern-sis/kubernetes` repository that your project has been updated and new docker images are available. This will trigger updates and deployments depending on the environments impacted. If your new images are intended for production, use the [Kubernetes project release action](../kubernetes-project-release) instead.
-
+This action can be used to notify the `cern-sis/kubernetes` repository that your project has been updated and new docker images are available.
 
 ## Inputs
 
 | Name | Required | Type | Description |
 | ---- | -------- | ---- | ----------- |
+| `event-type` | Yes | String | The type of the event triggering this action. `release` or `update`. |
 | `images` | Yes | String | The list of new images available. |
 | `token` | Yes | String | The Personal Access Token used to send the event. |
 
@@ -20,8 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: send event
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-update@v4.0.0
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-update@v5.0.0
         with:
+          event-type: update
           images: |
             "registry.cern.ch/cern-sis/mycoolproject/mytestimage:v1"
             "myorg/myotherproject@sha256:xxzxzxzxz"
@@ -33,8 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: send event
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-update@v4.0.0
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-update@v5.0.0
         with:
+          event-type: release
           images: "myorg/myotherproject@sha256:xxzxzxzxz"
           token: ${{ secrets.PAT }}
 ```
