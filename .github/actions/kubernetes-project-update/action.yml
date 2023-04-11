@@ -15,7 +15,7 @@ runs:
       run: |
         printf \
         'PAYLOAD={"images":%s}' \
-        $(jq -nc '$ARGS.positional' --args ${{ inputs.images }}) \
+        $(jq -nc '$ARGS.positional' --args ${{ join(inputs.images, ' ') }}) \
         >>$GITHUB_ENV
 
     - uses: peter-evans/repository-dispatch@v1
