@@ -24,8 +24,8 @@ jobs:
         with:
           event-type: update
           images: |
-            "registry.cern.ch/cern-sis/mycoolproject/mytestimage:v1"
-            "myorg/myotherproject@sha256:xxzxzxzxz"
+            registry.cern.ch/cern-sis/mycoolproject/mytestimage:v1
+            myorg/myotherproject@sha256:xxzxzxzxz
           token: ${{ secrets.PAT }}
 ```
 ```yaml
@@ -37,6 +37,11 @@ jobs:
         uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-update@v5.0.0
         with:
           event-type: release
-          images: "myorg/myotherproject@sha256:xxzxzxzxz"
+          images: myorg/myotherproject@sha256:xxzxzxzxz
           token: ${{ secrets.PAT }}
 ```
+
+## Know issues
+
+When using a multiline string (`|` symbol in YAML), don't surround your images with double quotes `"`.
+
