@@ -1,5 +1,10 @@
 name: Bump Version, Build and Release
 
+inputs:
+  token:
+    required: true
+    type: string
+
 runs:
   using: "composite"
   steps:
@@ -28,6 +33,6 @@ runs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ inputs.token }}
         branch: ${{ github.ref }}
         tags: true
