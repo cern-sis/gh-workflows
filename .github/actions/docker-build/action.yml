@@ -5,6 +5,7 @@ inputs:
     required: true
   context:
     required: false
+    default: "."
   tags:
     required: false
   registry:
