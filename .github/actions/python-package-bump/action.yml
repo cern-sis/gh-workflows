@@ -10,11 +10,9 @@ runs:
   steps:
     - name: Check out the repository
       uses: actions/checkout@v2
-      shell: bash
 
     - name: Set up Python
       uses: actions/setup-python@v2
-      shell: bash
       with:
         python-version: 3.x
 
@@ -37,7 +35,6 @@ runs:
 
     - name: Push changes
       uses: ad-m/github-push-action@master
-      shell: bash
       with:
         github_token: ${{ inputs.token }}
         branch: ${{ github.ref }}
