@@ -62,7 +62,7 @@ runs:
     - name: Login
       uses: docker/login-action@v2
       with:
-        registry: ${{ inputs.registry }}
+        registry: ${{ inputs.registry || "docker.io" }}
         username: ${{ inputs.username }}
         password: ${{ inputs.password }}
 
