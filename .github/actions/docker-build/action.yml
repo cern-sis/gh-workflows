@@ -44,17 +44,19 @@ outputs:
 
 runs:
   using: "composite"
-  env:
-    FULL_IMAGE_NAME: ${{ inputs.registry }}${{ inputs.registry && '/' }}${{ inputs.image }}
   steps:
     - name: Set up Docker
       uses: cern-sis/gh-workflows/.github/actions/docker-setup@v4.0.0
+
+    - name: Generate image name
+      shell: bash
+      run: echo "IMAGE=${{ inputs.registry }}${{ inputs.registry && '/' }}${{ inputs.image }}" >>$GITHUB_ENV
 
     - name: Generate metadata
       id: meta
       uses: docker/metadata-action@v4
       with:
-        images: ${{ env.FULL_IMAGE_NAME }}
+        images: ${{ env.IMAGE }}
         tags: |
           type=sha
           ${{ inputs.tags }}
@@ -76,8 +78,8 @@ runs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
-        cache-from: type=registry,ref=${{ env.FULL_IMAGE_NAME }}:buildcache
-        cache-to: type=registry,ref=${{ env.FULL_IMAGE_NAME }}:buildcache,mode=max
+        cache-from: type=registry,ref=${{ env.IMAGE }}:buildcache
+        cache-to: type=registry,ref=${{ env.IMAGE }}:buildcache,mode=max
         file: ${{ inputs.dockerfile }}
 
     - name: Build and export
