@@ -26,7 +26,7 @@ inputs:
 outputs:
   image-id:
     description: The ID of the image that was built
-    value: ${{ steps.build.outputs.imageid }}
+    value: ${{ steps.cached.outputs.imageid || steps.uncached.outputs.imageid }}
 
 runs:
   using: "composite"
@@ -50,7 +50,8 @@ runs:
         username: ${{ inputs.username }}
         password: ${{ inputs.password }}
 
-    - id: build
+    - name: build
+      id: cached
       if: ${{ inputs.cache }}
       name: Build and export
       uses: docker/build-push-action@v4
@@ -64,7 +65,8 @@ runs:
         cache-to: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache,mode=max
         file: ${{ inputs.dockerfile }}
 
-    - id: build
+    - name: Build
+      id: uncached
       if: ${{ !inputs.cache }}
       name: Build and export
       uses: docker/build-push-action@v4
