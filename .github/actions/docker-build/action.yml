@@ -45,7 +45,7 @@ outputs:
 runs:
   using: "composite"
   env:
-    FULL_IMAGE_NAME: ${{ join([inputs.registry, inputs.image], "/") }}
+    FULL_IMAGE_NAME: ${{ inputs.registry '/' inputs.image || inputs.image }}
   steps:
     - name: Set up Docker
       uses: cern-sis/gh-workflows/.github/actions/docker-setup@v4.0.0
