@@ -27,6 +27,12 @@ outputs:
   image-id:
     description: The ID of the image that was built
     value: ${{ steps.cached.outputs.imageid || steps.uncached.outputs.imageid }}
+  image-digest:
+    description: The Digest of the image that was built
+    value: ${{ steps.cached.outputs.digest || steps.uncached.outputs.digest }}
+  metadata:
+    description: The Digest of the image that was built
+    value: ${{ steps.cached.outputs.metadata || steps.uncached.outputs.metadata }}
 
 runs:
   using: "composite"
