@@ -17,6 +17,7 @@ This action bundle all the steps needed to build a docker image in your workflow
 | `password` | Yes | String | Password to authenticate on the registry. |
 | `stage` | No | String | The [stage](https://docs.docker.com/build/building/multi-stage/) to build . |
 | `dockerfile` | No | String | The path to the Dockerfile. |
+| `cache` | No | Bool | Enable/disable remote cache. |
 
 ## Examples
 
