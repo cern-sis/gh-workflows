@@ -69,13 +69,13 @@ runs:
         password: ${{ inputs.password }}
 
     - name: Debug
-      if: ${{ inputs.cache == false }}
+      if: ${{ inputs.cache }} == false
       shell: bash
       run: echo "Cache input is false"
 
     - name: Build and export
       id: cached
-      if: ${{ inputs.cache == true }}
+      if: ${{ inputs.cache }} == true
       uses: docker/build-push-action@v4
       with:
         context: ${{ inputs.context }}
@@ -89,7 +89,7 @@ runs:
 
     - name: Build and export
       id: uncached
-      if: ${{ inputs.cache == false }}
+      if: ${{ inputs.cache }} == false
       uses: docker/build-push-action@v4
       with:
         context: ${{ inputs.context }}
