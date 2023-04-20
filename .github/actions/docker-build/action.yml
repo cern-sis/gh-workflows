@@ -93,3 +93,4 @@ runs:
         labels: ${{ steps.meta.outputs.labels }}
         push: true
         file: ${{ inputs.dockerfile }}
+        no-cache: true
