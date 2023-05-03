@@ -77,7 +77,7 @@ runs:
 
     - name: Build and export
       id: cached
-      if: ${{ inputs.cache }}
+      if: ${{ inputs.cache }} == true
       uses: docker/build-push-action@v4
       with:
         context: ${{ inputs.context }}
@@ -92,7 +92,7 @@ runs:
 
     - name: Build and export
       id: uncached
-      if: ${{ !inputs.cache }}
+      if: ${{ inputs.cache }} == false
       uses: docker/build-push-action@v4
       with:
         context: ${{ inputs.context }}
