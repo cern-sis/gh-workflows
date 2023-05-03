@@ -21,6 +21,8 @@ inputs:
   cache:
     required: false
     default: true
+  build-args:
+    required: false
 
 outputs:
   image-id:
@@ -75,7 +77,7 @@ runs:
 
     - name: Build and export
       id: cached
-      if: ${{ inputs.cache }} == true
+      if: ${{ inputs.cache }}
       uses: docker/build-push-action@v4
       with:
         context: ${{ inputs.context }}
@@ -86,10 +88,11 @@ runs:
         cache-from: type=registry,ref=${{ env.IMAGE }}:buildcache
         cache-to: type=registry,ref=${{ env.IMAGE }}:buildcache,mode=max
         file: ${{ inputs.dockerfile }}
+        build-args: ${{ inputs.build-args }}
 
     - name: Build and export
       id: uncached
-      if: ${{ inputs.cache }} == false
+      if: ${{ !inputs.cache }}
       uses: docker/build-push-action@v4
       with:
         context: ${{ inputs.context }}
@@ -97,5 +100,6 @@ runs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
-        file: ${{ inputs.dockerfile }}
         no-cache: true
+        file: ${{ inputs.dockerfile }}
+        build-args: ${{ inputs.build-args }}

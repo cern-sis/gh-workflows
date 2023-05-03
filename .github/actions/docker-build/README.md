@@ -18,6 +18,7 @@ This action bundle all the steps needed to build a docker image in your workflow
 | `stage` | No | String | The [stage](https://docs.docker.com/build/building/multi-stage/) to build . |
 | `dockerfile` | No | String | The path to the Dockerfile. |
 | `cache` | No | Bool | Enable/disable remote cache. |
+| `build-args` | No | String | Additional build arguments. |
 
 ## Examples
 
