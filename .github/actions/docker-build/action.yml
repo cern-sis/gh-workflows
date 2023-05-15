@@ -57,6 +57,8 @@ runs:
     - name: Generate metadata
       id: meta
       uses: docker/metadata-action@v4
+      env:
+        DOCKER_METADATA_PR_HEAD_SHA: true
       with:
         images: ${{ env.IMAGE }}
         tags: |
