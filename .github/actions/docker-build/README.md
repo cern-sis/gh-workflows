@@ -19,6 +19,7 @@ This action bundle all the steps needed to build a docker image in your workflow
 | `dockerfile` | No | String | The path to the Dockerfile. |
 | `cache` | No | Bool | Enable/disable remote cache. |
 | `build-args` | No | String | Additional build arguments. |
+| `platforms` | No | CSV | Target platforms. |
 
 ## Examples
 
@@ -82,6 +83,7 @@ jobs:
           image: myorg/mycoolimage
           contest: ./docker/source
           dockerfile: ./somewhereelse/Dockerfile
+          platforms: linux/amd64,linux/arm64
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 ```

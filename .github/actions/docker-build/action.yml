@@ -23,6 +23,8 @@ inputs:
     default: true
   build-args:
     required: false
+  platforms:
+    required: false
 
 outputs:
   image-id:
@@ -86,6 +88,7 @@ runs:
         cache-to: type=registry,ref=${{ env.IMAGE }}:buildcache,mode=max
         file: ${{ inputs.dockerfile }}
         build-args: ${{ inputs.build-args }}
+        platforms: ${{ inputs.platforms }}
 
     - name: Build and export
       id: uncached
@@ -100,3 +103,4 @@ runs:
         no-cache: true
         file: ${{ inputs.dockerfile }}
         build-args: ${{ inputs.build-args }}
+        platforms: ${{ inputs.platforms }}
