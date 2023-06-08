@@ -53,8 +53,9 @@ runs:
       uses: cern-sis/gh-workflows/.github/actions/docker-setup@v4.0.0
 
     - name: Generate image name
+      id: generate
       shell: bash
-      run: echo "IMAGE=${{ inputs.registry }}${{ inputs.registry && '/' }}${{ inputs.image }}" >>$GITHUB_ENV
+      run: echo "image=${{ inputs.registry }}${{ inputs.registry && '/' }}${{ inputs.image }}" >>$GITHUB_OUTPUT
 
     - name: Generate metadata
       id: meta
@@ -62,7 +63,7 @@ runs:
       env:
         DOCKER_METADATA_PR_HEAD_SHA: true
       with:
-        images: ${{ env.IMAGE }}
+        images: ${{ steps.generate.outputs.image }}
         tags: |
           type=sha
           ${{ inputs.tags }}
@@ -84,8 +85,8 @@ runs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: true
-        cache-from: type=registry,ref=${{ env.IMAGE }}:buildcache
-        cache-to: type=registry,ref=${{ env.IMAGE }}:buildcache,mode=max
+        cache-from: type=registry,ref=${{ steps.generate.outputs.image }}:buildcache
+        cache-to: type=registry,ref=${{ steps.generate.outputs.image }}:buildcache,mode=max
         file: ${{ inputs.dockerfile }}
         build-args: ${{ inputs.build-args }}
         platforms: ${{ inputs.platforms }}
