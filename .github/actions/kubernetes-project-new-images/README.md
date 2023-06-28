@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: send event
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-update@v5.0.0
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6
         with:
           event-type: update
           images: |
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: send event
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-update@v5.0.0
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6
         with:
           event-type: release
           images: myorg/myotherproject@sha256:xxzxzxzxz
