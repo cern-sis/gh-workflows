@@ -32,3 +32,11 @@ runs:
         event-type: project-${{ inputs.event-type }}
         token: ${{ inputs.token }}
         client-payload: ${{ env.PAYLOAD }}
+
+    - uses: peter-evans/repository-dispatch@v1
+      with:
+        repository: cern-sis/kubernetes-scoap3
+        event-type: project-${{ inputs.event-type }}
+        token: ${{ inputs.token }}
+        client-payload: ${{ env.PAYLOAD }}
+
