@@ -7,6 +7,9 @@ inputs:
   images:
     required: true
     type: string
+  repo:
+    required: true
+    type: string
   token:
     required: true
     type: string
@@ -28,7 +31,7 @@ runs:
 
     - uses: peter-evans/repository-dispatch@v1
       with:
-        repository: cern-sis/kubernetes-scoap3
+        repository: ${{ inputs.repo }}
         event-type: project-${{ inputs.event-type }}
         token: ${{ inputs.token }}
         client-payload: ${{ env.PAYLOAD }}

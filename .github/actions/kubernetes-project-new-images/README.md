@@ -11,6 +11,7 @@ This action can be used to notify the `cern-sis/kubernetes` repository that your
 | `event-type` | Yes | String | The type of the event triggering this action. `release` or `update`. |
 | `images` | Yes | String | The list of new images available. |
 | `token` | Yes | String | The Personal Access Token used to send the event. |
+| `repo`  | Yes | String | Repository to fire the dispatch event to | 
 
 ## Examples
 
@@ -22,6 +23,7 @@ jobs:
       - name: send event
         uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6
         with:
+          repo: cern-sis/myrepo
           event-type: update
           images: |
             registry.cern.ch/cern-sis/mycoolproject/mytestimage:v1
@@ -36,6 +38,7 @@ jobs:
       - name: send event
         uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6
         with:
+          repo: cern-sis/myrepo
           event-type: release
           images: myorg/myotherproject@sha256:xxzxzxzxz
           token: ${{ secrets.PAT }}
