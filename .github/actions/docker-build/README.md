@@ -20,6 +20,7 @@ This action bundle all the steps needed to build a docker image in your workflow
 | `cache` | No | Bool | Enable/disable remote cache. |
 | `build-args` | No | String | Additional build arguments. |
 | `platforms` | No | CSV | Target platforms. |
+| `push` | No | Bool | Push image to registry. |
 
 ## Examples
 

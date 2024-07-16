@@ -25,6 +25,9 @@ inputs:
     required: false
   platforms:
     required: false
+  push:
+    required: false
+    deafault: true
 
 outputs:
   image-id:
@@ -84,7 +87,7 @@ runs:
         target: ${{ inputs.stage }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        push: true
+        push: ${{ inputs.push }}
         cache-from: type=registry,ref=${{ steps.generate.outputs.image }}:buildcache
         cache-to: type=registry,ref=${{ steps.generate.outputs.image }}:buildcache,mode=max
         file: ${{ inputs.dockerfile }}
@@ -100,7 +103,7 @@ runs:
         target: ${{ inputs.stage }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        push: true
+        push: ${{ inputs.push }}
         no-cache: true
         file: ${{ inputs.dockerfile }}
         build-args: ${{ inputs.build-args }}
