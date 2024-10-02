@@ -27,7 +27,7 @@ inputs:
     required: false
   push:
     required: false
-    deafault: true
+    default: true
 
 outputs:
   image-id:
