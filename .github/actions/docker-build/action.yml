@@ -36,6 +36,9 @@ outputs:
   image-digest:
     description: The Digest of the image that was built
     value: ${{ steps.cached.outputs.digest || steps.uncached.outputs.digest }}
+  json:
+    description: JSON output of tags and labels
+    value: ${{ steps.meta.outputs.json }}
   image-tags:
     description: List of tags generated
     value: ${{ steps.meta.outputs.tags }}
