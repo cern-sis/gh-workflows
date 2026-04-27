@@ -18,5 +18,5 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Setup docker
-        uses: cern-sis/gh-workflows/.github/actions/docker-setup@v4.0.0
+        uses: cern-sis/gh-workflows/.github/actions/docker-setup@v7.0.0
 ```
