@@ -22,6 +22,7 @@ This action bundle all the steps needed to build a docker image in your workflow
 | `platforms` | No | CSV | Target platforms. |
 | `push` | No | Bool | Push image to registry. |
 | `generate_build_summary` | No | Bool | Enables docker build summary generation. |
+| `enable_build_record_upload` | No | Bool | Enables uploading the docker build record. |
 
 ## Examples
 

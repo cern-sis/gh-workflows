@@ -31,6 +31,9 @@ inputs:
   generate_build_summary:
     default: false
     required: false
+  enable_build_record_upload:
+    default: false
+    required: false
 
 outputs:
   image-id:
@@ -89,6 +92,7 @@ runs:
       if: ${{ inputs.cache == 'true' }}
       env:
         DOCKER_BUILD_SUMMARY: ${{ inputs.generate_build_summary }}
+        DOCKER_BUILD_RECORD_UPLOAD: ${{ inputs.enable_build_record_upload }}
       uses: docker/build-push-action@v7.3.0
       with:
         context: ${{ inputs.context }}
@@ -107,6 +111,7 @@ runs:
       if: ${{ inputs.cache == 'false'}}
       env:
         DOCKER_BUILD_SUMMARY: ${{ inputs.generate_build_summary }}
+        DOCKER_BUILD_RECORD_UPLOAD: ${{ inputs.enable_build_record_upload }}
       uses: docker/build-push-action@v7.3.0
       with:
         context: ${{ inputs.context }}
