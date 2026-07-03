@@ -21,6 +21,7 @@ This action bundle all the steps needed to build a docker image in your workflow
 | `build-args` | No | String | Additional build arguments. |
 | `platforms` | No | CSV | Target platforms. |
 | `push` | No | Bool | Push image to registry. |
+| `generate_build_summary` | No | Bool | Enables docker build summary generation. |
 
 ## Examples
 
@@ -36,7 +37,7 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Build and push
-        uses: cern-sis/gh-workflows/.github/actions/docker-build@v7.0.0
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v7.1.0
         with:
           image: myorg/mycoolimage
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -55,7 +56,7 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Build and push
-        uses: cern-sis/gh-workflows/.github/actions/docker-build@v7.0.0
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v7.1.0
         with:
           image: cern-sis/mycoolproject/test
           tags: |
@@ -79,7 +80,7 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Build and push
-        uses: cern-sis/gh-workflows/.github/actions/docker-build@v7.0.0
+        uses: cern-sis/gh-workflows/.github/actions/docker-build@v7.1.0
         with:
           image: myorg/mycoolimage
           contest: ./docker/source
